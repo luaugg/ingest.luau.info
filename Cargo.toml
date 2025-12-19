@@ -1,0 +1,12 @@
+[package]
+name = "ingest_luau_info"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cloudflare = "0.14.0"
+digitalocean-api = "=0.2.2"
+poise = "0.6.1"
+serenity = "0.12.4"
+tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread"] }
+tracing-subscriber = "0.3.22"

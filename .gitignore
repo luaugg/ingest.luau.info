@@ -1,0 +1,5 @@
+# build artifacts
+/target
+
+# local dev script (with secrets)
+start.fish
