@@ -53,7 +53,6 @@ pub async fn syncer(
 
     let mut embed = CreateEmbed::default()
         .title("Syncer Links")
-        .description("If this is a new syncer, click **Show** on the Producer link to show it.")
         .field("Observer", url, false);
 
     if let Some(group_id) = group_id {
@@ -61,7 +60,9 @@ pub async fn syncer(
             "```https://syncer.live/control?groupId={}```",
             encode(&group_id)
         );
-        embed = embed.field("Producer", producer_url, false);
+        embed = embed
+            .description("If this is a new syncer, click **Show** on the Producer link to show it.")
+            .field("Producer", producer_url, false);
     }
 
     let reply = CreateReply::default().embed(embed);
