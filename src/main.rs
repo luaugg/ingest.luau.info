@@ -1,4 +1,4 @@
-mod test_command;
+mod syncer;
 
 use std::env;
 
@@ -11,10 +11,10 @@ pub struct Data {}
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
-    
+
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![test_command::test_command()],
+            commands: vec![syncer::syncer()],
             on_error: |error| {
                 Box::pin(async move {
                     match error {
