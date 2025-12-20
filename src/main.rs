@@ -4,7 +4,7 @@ mod syncer;
 mod tally;
 
 use ::cloudflare::framework::client::async_api::Client as CloudflareClient;
-use digitalocean_api::prelude::DigitalOcean;
+use digitalocean_api::prelude::*;
 use poise::serenity_prelude as serenity;
 use std::env;
 
@@ -34,7 +34,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![syncer::syncer(), tally::tally()],
+            commands: vec![syncer::syncer(), tally::tally(), srt::srt()],
             on_error: |error| {
                 Box::pin(async move {
                     match error {
