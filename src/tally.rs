@@ -4,6 +4,7 @@ use poise::CreateReply;
 use serenity::all::CreateEmbed;
 use urlencoding::encode;
 
+/// Generate tallylight.io links for producers and observers.
 #[poise::command(slash_command)]
 pub async fn tally(
     ctx: Context<'_>,
