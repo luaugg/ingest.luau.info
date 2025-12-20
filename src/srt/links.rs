@@ -4,29 +4,6 @@ use poise::CreateReply;
 use serenity::all::CreateEmbed;
 use urlencoding::encode;
 
-/// Commands to setup, provision and deploy ingest servers.
-#[poise::command(
-    slash_command,
-    subcommands("droplet", "dns", "links"),
-    subcommand_required
-)]
-pub async fn srt(_ctx: Context<'_>) -> Result<(), Error> {
-    // Parent stub of the srt commands; this will never execute.
-    Ok(())
-}
-
-#[poise::command(slash_command)]
-pub async fn droplet(_ctx: Context<'_>) -> Result<(), Error> {
-    // Parent stub of the droplet commands; this will never execute.
-    Ok(())
-}
-
-#[poise::command(slash_command)]
-pub async fn dns(_ctx: Context<'_>) -> Result<(), Error> {
-    // Parent stub of the DNS commands; this will never execute.
-    Ok(())
-}
-
 /// Provides a tallylight.io link and SRT links for producers and observers.
 #[poise::command(slash_command)]
 pub async fn links(
