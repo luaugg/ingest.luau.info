@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use cloudflare::{
     endpoints::dns::dns::{
         DnsRecord, ListDnsRecords, ListDnsRecordsParams, UpdateDnsRecord, UpdateDnsRecordParams,
