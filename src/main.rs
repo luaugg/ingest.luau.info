@@ -1,4 +1,5 @@
 mod syncer;
+mod tally;
 
 use std::env;
 
@@ -14,7 +15,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![syncer::syncer()],
+            commands: vec![syncer::syncer(), tally::tally()],
             on_error: |error| {
                 Box::pin(async move {
                     match error {
