@@ -37,21 +37,26 @@ pub async fn update(ctx: Context<'_>) -> Result<(), Error> {
             ListDnsRecordsParams::default(),
         )
         .await?;
+
         let records = response.result;
-        let matched = records.iter().find(|record| record.name == "ingest");
+        let matched = records
+            .iter()
+            .find(|record| record.name == "ingest.luau.info");
 
         if let Some(record) = matched {
             let params = UpdateDnsRecordParams {
                 ttl: Some(60),
                 proxied: Some(false),
-                name: "ingest",
+                name: "ingest.luau.info",
                 content: A {
                     content: ip_address,
                 },
             };
 
             update_dns_record(cf_client, zone_identifier, record.id.clone(), params).await?;
-            embed = embed.description("Updated DNS record - it should propagate in a minute.");
+            embed = embed
+                .title("DNS Records Updated")
+                .description("It should propagate in about a minute.");
         } else {
             // TODO: Create the DNS record in this case.
             embed = embed.description("No matching DNS record found.");
