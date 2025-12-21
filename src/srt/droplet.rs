@@ -22,7 +22,7 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
 
     let embed = CreateEmbed::default()
         .title("Droplet Created")
-        .description("You should follow up this command with `/srt dns update`.");
+        .description("In two minutes, follow up this command with `/srt dns update`.");
     let reply = CreateReply::default().embed(embed);
 
     ctx.send(reply).await?;
