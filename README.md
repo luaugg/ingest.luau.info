@@ -8,8 +8,6 @@ Discord bot which aims to accomplish the following objectives:
 * Allow me to conveniently destroy deployed ingest server droplets when I'm done with them.
 * Serve as a tool to allow me to learn Rust and bot development again.
 
-I have no plans to open source this code at the moment, though I might in the future.
-
 ## License
 
 This code (that is, the source code within this repository and **not** any external dependencies) follows the MIT License.
