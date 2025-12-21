@@ -12,7 +12,7 @@ pub async fn droplet(_ctx: Context<'_>) -> Result<(), Error> {
 
 #[poise::command(slash_command, owners_only)]
 pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
-    ctx.defer_ephemeral().await?;
+    ctx.defer().await?;
     let snapshot_id = std::env::var("DIGITALOCEAN_SNAPSHOT_ID")
         .expect("DIGITALOCEAN_SNAPSHOT_ID environment variable not set");
 
@@ -31,7 +31,7 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
 
 #[poise::command(slash_command, owners_only)]
 pub async fn delete(ctx: Context<'_>) -> Result<(), Error> {
-    ctx.defer_ephemeral().await?;
+    ctx.defer().await?;
 
     let mut embed = CreateEmbed::default();
     let droplet = Droplet::list()

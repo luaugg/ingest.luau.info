@@ -12,7 +12,7 @@ pub async fn dns(_ctx: Context<'_>) -> Result<(), Error> {
 
 #[poise::command(slash_command)]
 pub async fn update(ctx: Context<'_>) -> Result<(), Error> {
-    ctx.defer_ephemeral().await?;
+    ctx.defer().await?;
 
     let mut embed = CreateEmbed::default();
     let cf_client = &ctx.data().cloudflare_client;
