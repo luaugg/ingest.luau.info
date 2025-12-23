@@ -16,13 +16,12 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
     let snapshot_id = std::env::var("DIGITALOCEAN_SNAPSHOT_ID")
         .expect("DIGITALOCEAN_SNAPSHOT_ID environment variable not set");
 
-    Droplet::create("ingest", "lon1", "c-4", snapshot_id)
+    Droplet::create("ingest", "lon1", "c-2", snapshot_id)
         .execute(&ctx.data().digitalocean_client)
         .await?;
 
     let embed = CreateEmbed::default()
-        .title("Droplet Created")
-        .description("In two minutes, follow up this command with `/srt dns update`.");
+        .description("Droplet created. Later, follow up this command with `/srt dns update`.");
     let reply = CreateReply::default().embed(embed);
 
     ctx.send(reply).await?;
