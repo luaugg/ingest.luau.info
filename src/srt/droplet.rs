@@ -12,6 +12,7 @@ pub async fn droplet(_ctx: Context<'_>) -> Result<(), Error> {
     Ok(())
 }
 
+/// Creates a new ingest server droplet. Takes about 45 seconds to complete.
 #[poise::command(slash_command, owners_only)]
 pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
     ctx.defer().await?;
@@ -29,6 +30,7 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
     Ok(())
 }
 
+/// Deletes the ingest server droplet so that we don't incur charges.
 #[poise::command(slash_command, owners_only)]
 pub async fn delete(ctx: Context<'_>) -> Result<(), Error> {
     ctx.defer().await?;

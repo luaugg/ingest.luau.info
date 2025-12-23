@@ -7,6 +7,7 @@ pub async fn dns(_ctx: Context<'_>) -> Result<(), Error> {
     Ok(())
 }
 
+/// Update DNS records so that ingest.luau.info points to the current IP address.
 #[poise::command(slash_command, owners_only)]
 pub async fn update(ctx: Context<'_>) -> Result<(), Error> {
     ctx.defer().await?;
