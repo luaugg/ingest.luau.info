@@ -8,7 +8,7 @@ pub async fn dns(_ctx: Context<'_>) -> Result<(), Error> {
     Ok(())
 }
 
-#[poise::command(slash_command)]
+#[poise::command(slash_command, owners_only)]
 pub async fn update(ctx: Context<'_>) -> Result<(), Error> {
     ctx.defer().await?;
     let mut embed = CreateEmbed::default();
