@@ -38,10 +38,14 @@ impl CFClient {
         self.client.request(&request).await
     }
 
-    pub async fn update_dns_record(&self, addr: Ipv4Addr) -> ApiResult<DnsRecord> {
+    pub async fn update_dns_record(
+        &self,
+        identifier: &str,
+        addr: Ipv4Addr,
+    ) -> ApiResult<DnsRecord> {
         let request = UpdateDnsRecord {
             zone_identifier: &self.zone_identifier,
-            identifier: "ingest.luau.info",
+            identifier: identifier,
             params: UpdateDnsRecordParams {
                 ttl: Some(60),
                 proxied: Some(false),
