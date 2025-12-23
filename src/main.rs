@@ -2,7 +2,7 @@ mod cloudflare;
 mod srt;
 mod syncer;
 
-use ::cloudflare::framework::client::async_api::Client as CloudflareClient;
+use crate::cloudflare::CFClient;
 use digitalocean_api::prelude::*;
 use poise::serenity_prelude as serenity;
 use std::env;
@@ -11,8 +11,7 @@ type Error = Box<dyn std::error::Error + Send + Sync>;
 type Context<'a> = poise::Context<'a, Data, Error>;
 
 pub struct Data {
-    cloudflare_client: CloudflareClient,
-    cloudflare_zone_id: String,
+    cloudflare_client: CFClient,
     digitalocean_client: DigitalOcean,
     digitalocean_snapshot_id: String,
 }
@@ -31,10 +30,7 @@ async fn main() {
     let digitalocean_snapshot_id =
         env::var("DIGITALOCEAN_SNAPSHOT_ID").expect("missing DIGITALOCEAN_SNAPSHOT_ID env var");
     let data = Data {
-        cloudflare_client: cloudflare::get_cloudflare_client(cloudflare_token)
-            .await
-            .expect("failed to create cloudflare client"),
-        cloudflare_zone_id,
+        cloudflare_client: CFClient::new(cloudflare_token, cloudflare_zone_id.clone()),
         digitalocean_client: DigitalOcean::new(digitalocean_token).unwrap(),
         digitalocean_snapshot_id,
     };
