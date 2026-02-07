@@ -4,8 +4,9 @@ mod srt;
 mod syncer;
 
 use crate::{cloudflare::CFClient, digitalocean::DOClient};
+use ::serenity::all::UserId;
 use poise::serenity_prelude as serenity;
-use std::env;
+use std::{collections::HashSet, env, hash::RandomState};
 
 type Error = Box<dyn std::error::Error + Send + Sync>;
 type Context<'a> = poise::Context<'a, Data, Error>;
@@ -33,9 +34,24 @@ async fn main() {
         digitalocean_client: DOClient::new(digitalocean_token, digitalocean_snapshot_id),
     };
 
+    let owner_ids = vec![
+        UserId::new(199217346911404032),
+        UserId::new(283708023686299649),
+        UserId::new(310424155910832130),
+        UserId::new(816685888058687541),
+        UserId::new(244234125194559488),
+    ];
+
+    let random_state = RandomState::new();
+    let mut owners = HashSet::with_hasher(random_state);
+    for id in owner_ids {
+        owners.insert(id);
+    }
+
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
             commands: vec![syncer::syncer(), srt::srt()],
+            owners: owners,
             on_error: |error| {
                 Box::pin(async move {
                     match error {
