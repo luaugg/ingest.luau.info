@@ -11,7 +11,9 @@ use urlencoding::encode;
 #[poise::command(slash_command)]
 pub async fn syncer(
     ctx: Context<'_>,
-    #[description = "Label to show in syncer."] label: Option<String>,
+    #[description = "Which stream to use."]
+    #[choices("USS A Stream", "USS B Stream")]
+    stream: &'static str,
     #[description = "Whether to show the system clock offset."] offset: Option<bool>,
     #[description = "Whether to center the syncer on the webpage."] center: Option<bool>,
     #[description = "Remote group ID of the syncer (so you can hide it later)."] group_id: Option<
@@ -29,10 +31,12 @@ pub async fn syncer(
 ) -> Result<(), Error> {
     let mut url = "```https://syncer.live/embed?".to_owned();
 
-    url.push_str(&format!(
-        "&label={}",
-        encode(&label.unwrap_or(String::from("")))
-    ));
+    match stream {
+        "USS A Stream" => url.push_str("&label=USS%20A%20Stream"),
+        "USS B Stream" => url.push_str("&label=USS%20B%20Stream"),
+        _ => (),
+    }
+
     url.push_str(&format!("&offset={}", offset.unwrap_or(true)));
     url.push_str(&format!("&center={}", center.unwrap_or(true)));
     url.push_str(&format!(
