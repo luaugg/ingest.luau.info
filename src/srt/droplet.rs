@@ -16,11 +16,13 @@ pub async fn droplet(_ctx: Context<'_>) -> Result<(), Error> {
 #[poise::command(slash_command, owners_only)]
 pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
     ctx.defer().await?;
+    let cf_client = &ctx.data().cloudflare_client;
+    let do_client = &ctx.data().digitalocean_client;
 
-    match ctx.data().digitalocean_client.create_droplet().await {
+    match do_client.create_droplet().await {
         Ok(droplet) => {
             let embed = CreateEmbed::default().description(format!(
-                "Droplet created with ID `{}`. Wait a minute for it to be ready.",
+                "Droplet creation will finish in 45 seconds. ID: `{}`",
                 droplet.id()
             ));
 
@@ -28,11 +30,21 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
             let reply = ctx.send(reply_builder.clone()).await?;
             sleep(Duration::from_secs(45)).await;
 
+            let ip_addr = do_client.get_network_address().await?;
+            let records = cf_client.list_dns_records().await?.result;
+            let record = records.iter().find(|r| r.name == "ingest.luau.info");
+            let result = match record {
+                Some(record) => cf_client.update_dns_record(&record.id, ip_addr).await,
+                None => cf_client.create_dns_record(ip_addr).await,
+            };
+
+            let description = match result {
+                Ok(_) => "Droplet is now ready. You can generate links with `/srt links`.",
+                Err(err) => &format!("Failed to update DNS record: {}", err),
+            };
+
             reply
-                .edit(
-                    ctx,
-                    reply_builder.embed(embed.description("Droplet is now ready.")),
-                )
+                .edit(ctx, reply_builder.embed(embed.description(description)))
                 .await?;
         }
         Err(err) => {
