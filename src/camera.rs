@@ -14,7 +14,7 @@ pub async fn cams(
     let ingest = use_ingest.unwrap_or(true);
 
     let send_uri = format!(
-        "```https://vdo.ninja/?push={}{}```",
+        "[Click me](https://vdo.ninja/?push={}{})",
         encode(&name),
         if ingest {
             "&mediamtx=ingest.luau.info"
@@ -28,8 +28,8 @@ pub async fn cams(
     let embed = CreateEmbed::new()
         .title("Camera Links")
         .description("These links are for sending and receiving camera feeds.")
-        .field("Caster", send_uri, false)
-        .field("Producer", view_uri, false);
+        .field("Caster", send_uri, true)
+        .field("Producer", view_uri, true);
 
     ctx.send(reply.embed(embed)).await?;
     Ok(())
