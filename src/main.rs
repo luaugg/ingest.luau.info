@@ -5,8 +5,8 @@ mod srt;
 mod syncer;
 
 use crate::{cloudflare::CFClient, digitalocean::DOClient};
-use ::serenity::all::UserId;
 use poise::serenity_prelude as serenity;
+use serenity::all::UserId;
 use std::{collections::HashSet, env, hash::RandomState};
 
 type Error = Box<dyn std::error::Error + Send + Sync>;
