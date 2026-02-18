@@ -1,3 +1,4 @@
+mod camera;
 mod cloudflare;
 mod digitalocean;
 mod srt;
@@ -50,7 +51,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![syncer::syncer(), srt::srt()],
+            commands: vec![syncer::syncer(), srt::srt(), camera::cams()],
             owners: owners,
             on_error: |error| {
                 Box::pin(async move {
