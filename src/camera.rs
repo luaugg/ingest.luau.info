@@ -8,20 +8,8 @@ use urlencoding::encode;
 pub async fn cams(
     ctx: Context<'_>,
     #[description = "The name of the user the camera link will be for."] name: String,
-    #[description = "(Optional) Whether to use the ingest server for encoding camera feeds."]
-    use_ingest: Option<bool>,
 ) -> Result<(), Error> {
-    let ingest = use_ingest.unwrap_or(true);
-
-    let send_uri = format!(
-        "[Click me](https://vdo.ninja/?push={}{})",
-        encode(&name),
-        if ingest {
-            "&mediamtx=ingest.luau.info"
-        } else {
-            ""
-        }
-    );
+    let send_uri = format!("[Click me](https://vdo.ninja/?push={})", encode(&name),);
 
     let view_uri = format!("```https://vdo.ninja/?view={}```", encode(&name));
     let reply = CreateReply::default();

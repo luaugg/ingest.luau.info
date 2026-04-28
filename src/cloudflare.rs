@@ -49,7 +49,7 @@ impl CFClient {
             params: UpdateDnsRecordParams {
                 ttl: Some(60),
                 proxied: Some(false),
-                name: "ingest.luau.info",
+                name: "feed.rspwn.io",
                 content: DnsContent::A { content: addr },
             },
         };
@@ -63,7 +63,7 @@ impl CFClient {
                 ttl: Some(60),
                 priority: None,
                 proxied: Some(false),
-                name: "ingest.luau.info",
+                name: "feed.rspwn.io",
                 content: DnsContent::A { content: addr },
             },
         };

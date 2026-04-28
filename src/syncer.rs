@@ -22,13 +22,13 @@ pub async fn syncer(
     match stream {
         "USS A Stream" => {
             url.push_str("&label=USS%20A%20Stream");
-            url.push_str("&groupId=uss-2026-spring-a");
-            producer_url.push_str("uss-2026-spring-a```");
+            url.push_str("&groupId=uss-2026-summer-a");
+            producer_url.push_str("uss-2026-summer-a```");
         }
         "USS B Stream" => {
             url.push_str("&label=USS%20B%20Stream");
-            url.push_str("&groupId=uss-2026-spring-b");
-            producer_url.push_str("uss-2026-spring-b```");
+            url.push_str("&groupId=uss-2026-summer-b");
+            producer_url.push_str("uss-2026-summer-b```");
         }
         _ => (),
     }

@@ -29,7 +29,7 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
     match do_client.create_droplet().await {
         Ok(droplet) => {
             let mut embed = CreateEmbed::default().description(format!(
-                "Server creation will finish in 45 seconds. ID: `{}`",
+                "Server creation will finish in ~45 seconds. ID: `{}`",
                 droplet.id()
             ));
 
@@ -40,7 +40,7 @@ pub async fn create(ctx: Context<'_>) -> Result<(), Error> {
 
             let ip_addr = do_client.get_network_address().await?;
             let records = cf_client.list_dns_records().await?.result;
-            let record = records.iter().find(|r| r.name == "ingest.luau.info");
+            let record = records.iter().find(|r| r.name == "feed.rspwn.io");
             let result = match record {
                 Some(record) => cf_client.update_dns_record(&record.id, ip_addr).await,
                 None => cf_client.create_dns_record(ip_addr).await,
